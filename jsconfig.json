@@ -1,0 +1,33 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"module": "es6",
+		"strict": true,
+		"jsx": "preserve",
+		"importHelpers": true,
+		"moduleResolution": "node",
+		"experimentalDecorators": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": true,
+		"baseUrl": ".",
+		"outDir": "./built/",
+		"skipLibCheck": true,
+		"paths": {
+			"@/*": ["./src/*"]
+		},
+		"lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+	},
+	"include": [
+    "./src/**/*",
+    "./gridsome.*.js"
+  ],
+  "exclude": [
+    "content",
+    "node_modules",
+    "static",
+    "src/.temp",
+    "src/assets",
+    "dist"
+  ]
+}
