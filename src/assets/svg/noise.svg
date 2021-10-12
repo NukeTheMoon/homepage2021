@@ -1,0 +1,28 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="300" height="300"
+>
+    <filter id="n" x="0" y="0">
+        <feTurbulence
+            id="turbulence"
+            type="turbulence"
+            baseFrequency="0.5"
+            stitchTiles="stitch"
+            numOctaves="10"
+            seed="2"
+        />
+        <feColorMatrix type="saturate" values="0"/>
+    </filter>
+
+    <animate 
+      xlink:href="#turbulence"
+      attributeName="seed"
+      from="1"
+      to="8"
+      dur="1000ms"
+      repeatCount="indefinite"
+    />
+
+    <rect width='300' height='300' fill='#000' filter="url(#n)" opacity="0.1"/>
+</svg>
