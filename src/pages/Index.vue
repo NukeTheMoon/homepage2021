@@ -49,8 +49,8 @@
 </template>
 
 <script>
-import { defineComponent, onMounted, ref } from '@vue/composition-api';
-import gsap from 'gsap';
+import { defineComponent, getCurrentInstance, onMounted, ref } from '@vue/composition-api';
+import { gsap, Power3 } from 'gsap/all';
 
 import { rot13 } from '@/helpers/rot13';
 
@@ -67,9 +67,11 @@ export default defineComponent({
 		}
 
 		function animate() {
-			if (!greet.value) return;
+			const { proxy: vm } = getCurrentInstance();
 
-			gsap.from(greet.value, { y: -100, duration: 1, ease: 'power4.out' });
+			if (!vm) return;
+
+			gsap.from(vm.greet, { y: -100, duration: 1.5, ease: Power3.easeOut, repeat: -1, delay: 0.3 });
 		}
 
 		onMounted(() => {
@@ -101,6 +103,7 @@ export default defineComponent({
 	margin-bottom: 2.2rem;
 	overflow: hidden;
 	position: relative;
+	line-height: 1;
 }
 
 .intro {
