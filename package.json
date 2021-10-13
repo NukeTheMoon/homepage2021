@@ -2,7 +2,7 @@
   "name": "homepage2021",
   "private": true,
   "scripts": {
-    "build": "gridsome build",
+    "build": "rm -rf .cache && rm -rf dist && yarn && gridsome build",
     "develop": "gridsome develop",
     "explore": "gridsome explore",
     "serve": "gridsome develop"
