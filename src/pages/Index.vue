@@ -2,7 +2,9 @@
 	<Layout>
 		<div class="moon"></div>
 		<div class="type">
-			<h1 class="greet">hello.</h1>
+			<h1 class="greet">
+				<span ref="greet">hello.</span>
+			</h1>
 			<p class="intro">
 				my name is
 				<span>Bartek</span>
@@ -48,12 +50,14 @@
 
 <script>
 import { defineComponent, onMounted, ref } from '@vue/composition-api';
+import gsap from 'gsap';
 
 import { rot13 } from '@/helpers/rot13';
 
 export default defineComponent({
 	setup() {
 		const mail = ref();
+		const greet = ref();
 
 		function decodeMail() {
 			if (!mail.value) return;
@@ -62,12 +66,20 @@ export default defineComponent({
 			mail.value.innerText = rot13(mail.value.innerText);
 		}
 
+		function animate() {
+			if (!greet.value) return;
+
+			gsap.from(greet.value, { y: -100, duration: 1, ease: 'power4.out' });
+		}
+
 		onMounted(() => {
 			decodeMail();
+			animate();
 		});
 
 		return {
 			mail,
+			greet,
 		};
 	},
 });
@@ -87,6 +99,8 @@ export default defineComponent({
 	font-weight: 700;
 	letter-spacing: -0.05em;
 	margin-bottom: 2.2rem;
+	overflow: hidden;
+	position: relative;
 }
 
 .intro {
