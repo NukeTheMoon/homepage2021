@@ -5,6 +5,15 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 const CircularDependencyPlugin = require('circular-dependency-plugin');
+const path = require('path');
+
+function addStyleResource(rule) {
+	rule.use('style-resource')
+		.loader('style-resources-loader')
+		.options({
+			patterns: [path.resolve(__dirname, './src/assets/sass/*.scss')],
+		});
+}
 
 module.exports = {
 	siteName: 'homepage2021',
@@ -38,6 +47,7 @@ module.exports = {
 	},
 	chainWebpack(config) {
 		const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];
+		types.forEach(type => addStyleResource(config.module.rule('scss').oneOf(type)));
 
 		config.resolve.alias.set('@static', require('path').resolve(__dirname, 'static'));
 		config.resolve.alias.set('@images', require('path').resolve(__dirname, 'static/images'));
