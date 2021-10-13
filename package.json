@@ -2,7 +2,8 @@
   "name": "homepage2021",
   "private": true,
   "scripts": {
-    "build": "rm -rf .cache && rm -rf dist && yarn && gridsome build",
+    "deploy": "rm -rf .cache && rm -rf dist && yarn && yarn build",
+    "build": "gridsome build",
     "develop": "gridsome develop",
     "explore": "gridsome explore",
     "serve": "gridsome develop"
