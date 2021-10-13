@@ -1,7 +1,7 @@
 <svg
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="300" height="300"
+  width="600" height="600"
 >
     <filter id="n" x="0" y="0">
         <feTurbulence
@@ -9,7 +9,7 @@
             type="turbulence"
             baseFrequency="0.5"
             stitchTiles="stitch"
-            numOctaves="10"
+            numOctaves="1"
             seed="2"
         />
         <feColorMatrix type="saturate" values="0"/>
@@ -24,5 +24,5 @@
       repeatCount="indefinite"
     />
 
-    <rect width='300' height='300' fill='#000' filter="url(#n)" opacity="0.1"/>
+    <rect width='600' height='600' fill='#000' filter="url(#n)" opacity="0.08"/>
 </svg>
