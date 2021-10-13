@@ -1,0 +1,40 @@
+@mixin min-sm {
+	@media all and (min-width: map-get($breakpoints, sm)) {
+		@content;
+	}
+}
+@mixin min-md {
+	@media all and (min-width: map-get($breakpoints, md)) {
+		@content;
+	}
+}
+@mixin min-lg {
+	@media all and (min-width: map-get($breakpoints, lg)) {
+		@content;
+	}
+}
+@mixin max-sm {
+	@media all and (max-width: map-get($breakpoints, sm)) {
+		@content;
+	}
+}
+@mixin max-md {
+	@media all and (max-width: map-get($breakpoints, md)) {
+		@content;
+	}
+}
+@mixin max-lg {
+	@media all and (max-width: map-get($breakpoints, lg)) {
+		@content;
+	}
+}
+@mixin landscape {
+	@media all and (orientation: landscape) {
+		@content;
+	}
+}
+@mixin portrait {
+	@media all and (orientation: portrait) {
+		@content;
+	}
+}

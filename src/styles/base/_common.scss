@@ -7,6 +7,10 @@ html {
 	font-size: 10/750*100vw;
 	font-weight: 400;
 	color: $color-white;
+
+  @include min-md {
+    font-size: 10/1920*100vw;
+  }
 }
 
 span, strong, a {
