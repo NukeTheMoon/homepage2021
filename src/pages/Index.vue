@@ -138,8 +138,8 @@ export default defineComponent({
 			tl.from(vm.btnText, { yPercent: -101 }, '<0.3');
 			tl.from(vm.write, { xPercent: -101 }, '>-0.3');
 			tl.from(vm.mail, { xPercent: -101 }, '>-0.6');
-			tl.from(vm.github, { yPercent: -101, duration: 0.7 }, '>-0.6');
-			tl.from(vm.linkedin, { yPercent: -101, duration: 0.7 }, '>-0.6');
+			tl.from(vm.github, { yPercent: -102, duration: 0.7 }, '>-0.6');
+			tl.from(vm.linkedin, { yPercent: -102, duration: 0.7 }, '>-0.6');
 			tl.to(
 				vm.btn,
 				{
