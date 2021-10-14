@@ -17,7 +17,7 @@ function addStyleResource(rule) {
 
 module.exports = {
 	siteName: 'homepage2021',
-	icon: './src/favicon.png',
+	icon: './src/favicon.svg',
 	plugins: [{ use: 'gridsome-plugin-composition-api' }],
 	css: {
 		sourceMap: true,

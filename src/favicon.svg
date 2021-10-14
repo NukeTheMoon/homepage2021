@@ -1,0 +1,67 @@
+<svg width="20" height="20" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+      <linearGradient id="lg" x1="0" x2="1" y1="0" y2="1">
+        <stop class="stop1" offset="0%"/>
+        <stop class="stop2" offset="75%"/>
+      </linearGradient>
+
+      <style type="text/css"><![CDATA[
+        #circle {
+          fill: url(#lg);
+        }
+        .stop1, .stop2 {
+          stop-color: #ff3c65;
+        }
+        .stop1 {
+          animation: shine1 2s linear infinite;
+        }
+        .stop2 {
+          animation: shine2 2s linear infinite;
+        }
+
+        @keyframes shine1 {
+          0% {
+            stop-opacity: 100%;
+          }
+          12.5% {
+            stop-opacity: 100%;
+          }
+          37.5% {
+            stop-opacity: 0%
+          }
+          62.5% {
+            stop-opacity: 0%;
+          }
+          87.5% {
+            stop-opacity: 0%;
+          }
+          100% {
+            stop-opacity: 100%;
+          }
+        }
+
+        @keyframes shine2 {
+          0% {
+            stop-opacity: 0%;
+          }
+          12.5% {
+            stop-opacity: 100%;
+          }
+          37.5% {
+            stop-opacity: 100%;
+          }
+          62.5% {
+            stop-opacity: 0%;
+          }
+          87.5% {
+            stop-opacity: 0%;
+          }
+          100% {
+            stop-opacity: 0%;
+          }
+        }
+      ]]></style>
+  </defs>
+
+  <circle id="circle" cx="10" cy="10" r="10" />
+</svg>
