@@ -27,7 +27,7 @@
 				&#32;
 
 				<span class="overflow">
-					<strong ref="intro4">front end developer</strong>
+					<strong ref="intro4">frontend developer</strong>
 				</span>
 
 				<br />
@@ -130,9 +130,9 @@ export default defineComponent({
 			tl.from(vm.greet, { yPercent: -101, duration: 2, ease: Expo.easeInOut });
 			tl.from(vm.intro1, { xPercent: -101 }, '<1');
 			tl.from(vm.intro2, { xPercent: -103 }, '>-0.6');
-			tl.from(vm.intro3, { xPercent: -101 }, '<0.3');
+			tl.from(vm.intro3, { xPercent: -101 }, '<0.5');
 			tl.from(vm.intro4, { xPercent: -101 }, '>-0.6');
-			tl.from(vm.intro5, { xPercent: -101 }, '<0.3');
+			tl.from(vm.intro5, { xPercent: -101 }, '<0.5');
 			tl.from(vm.btn, { xPercent: -101, onComplete: disableCtaOverflow }, '<0.3');
 			tl.from(vm.btnArrow, { yPercent: -101 }, '<0.3');
 			tl.from(vm.btnText, { yPercent: -101 }, '<0.3');
