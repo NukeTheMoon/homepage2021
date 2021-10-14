@@ -15,5 +15,14 @@
         <feColorMatrix type="saturate" values="0"/>
     </filter>
 
+    <animate
+      xlink:href="#turbulence"
+      attributeName="seed"
+      from="1"
+      to="8"
+      dur="1000ms"
+      repeatCount="indefinite"
+    />
+
     <rect width='600' height='600' fill='#000' filter="url(#n)" opacity="0.3"/>
 </svg>

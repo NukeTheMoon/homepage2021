@@ -1,5 +1,7 @@
 html {
-	background: linear-gradient(315deg, #282828, #262626, #232323, #212121, #1f1f1f, #1c1c1c, #1a1a1a, #181818), url('~@/assets/svg/noise.svg');
+  $gradient: linear-gradient(315deg, #282828, #262626, #232323, #212121, #1f1f1f, #1c1c1c, #1a1a1a, #181818);
+
+	background: $gradient, url('~@/assets/svg/noise.svg');
 	background-attachment: fixed;
   background-blend-mode: screen;
 
@@ -10,6 +12,10 @@ html {
 
   @include min-md {
     font-size: 10/1920*100vw;
+  }
+
+  &:not(.firefox) {
+    background: $gradient, url('~@/assets/svg/noise-anim.svg') !important;
   }
 }
 

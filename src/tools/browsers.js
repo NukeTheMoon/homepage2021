@@ -1,5 +1,5 @@
 export function isIe() {
-	if (!process.isClient) {
+	if (process.isServer) {
 		return false;
 	}
 
@@ -10,7 +10,7 @@ export function isIe() {
 }
 
 export function isEdge() {
-	if (!process.isClient) {
+	if (process.isServer) {
 		return false;
 	}
 
@@ -18,7 +18,7 @@ export function isEdge() {
 }
 
 export function isSafari() {
-	if (!process.isClient) {
+	if (process.isServer) {
 		return false;
 	}
 
@@ -26,7 +26,7 @@ export function isSafari() {
 }
 
 export function isFirefox() {
-	if (!process.isClient) {
+	if (process.isServer) {
 		return false;
 	}
 
@@ -34,7 +34,7 @@ export function isFirefox() {
 }
 
 export function isOpera() {
-	if (!process.isClient) {
+	if (process.isServer) {
 		return false;
 	}
 
@@ -48,7 +48,7 @@ export function isOpera() {
 }
 
 export function isChrome() {
-	if (!process.isClient) {
+	if (process.isServer) {
 		return false;
 	}
 
@@ -67,7 +67,7 @@ export function isChrome() {
 }
 
 export function isIOS() {
-	if (!process.isClient) {
+	if (process.isServer) {
 		return false;
 	}
 
@@ -78,7 +78,7 @@ export function isIOS() {
 }
 
 export function isIOSChrome() {
-	if (!process.isClient) {
+	if (process.isServer) {
 		return false;
 	}
 
@@ -86,7 +86,7 @@ export function isIOSChrome() {
 }
 
 export function isIOSFirefox() {
-	if (!process.isClient) {
+	if (process.isServer) {
 		return false;
 	}
 
@@ -94,7 +94,7 @@ export function isIOSFirefox() {
 }
 
 export function isAndroid() {
-	if (!process.isClient) {
+	if (process.isServer) {
 		return false;
 	}
 

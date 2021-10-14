@@ -143,8 +143,8 @@ export default defineComponent({
 			tl.to(
 				vm.btn,
 				{
-					scaleX: 1.05,
-					scaleY: 1.05,
+					scaleX: 1.15,
+					scaleY: 1.15,
 					boxShadow: '0 0 7em 0 rgba(255, 255, 255, 0.1)',
 					ease: Power3.easeOut,
 					repeat: 1,
@@ -204,7 +204,7 @@ export default defineComponent({
 
 .intro {
 	font-size: 3.6rem;
-	line-height: 4.8rem;
+	line-height: 4.2rem;
 	letter-spacing: -0.025em;
 	margin-bottom: 11.2rem;
 
