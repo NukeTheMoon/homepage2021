@@ -13,6 +13,16 @@ html {
   }
 }
 
-span, strong, a {
+span, strong, a, b {
 	display: inline-block;
+}
+
+.overflow {
+	overflow: hidden;
+}
+
+.link {
+	color: $color-accent;
+	text-decoration: none;
+	font-weight: 700;
 }

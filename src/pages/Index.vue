@@ -1,47 +1,85 @@
 <template>
 	<Layout>
 		<div class="moon"></div>
+
 		<div class="type">
 			<h1 class="greet">
 				<span ref="greet">hello.</span>
 			</h1>
-			<p class="intro">
-				my name is
-				<span>Bartek</span>
+
+			<p class="intro overflow">
+				<span class="overflow">
+					<span ref="intro1">my name is</span>
+				</span>
+
+				&#32;
+
+				<span class="overflow">
+					<b ref="intro2">Bartek</b>
+				</span>
+
 				<br />
-				and I'm the
-				<strong>front end developer</strong>
+
+				<span class="overflow">
+					<span ref="intro3">and I'm the</span>
+				</span>
+
+				&#32;
+
+				<span class="overflow">
+					<strong ref="intro4">front end developer</strong>
+				</span>
+
 				<br />
-				that you're looking for.
+
+				<span class="overflow">
+					<span ref="intro5">that you're looking for.</span>
+				</span>
 			</p>
-			<div class="cta">
-				<a href="#" class="btn">
-					<img class="arrow" src="@/assets/svg/arrow.svg" alt="" />
-					<span>download cv</span>
+
+			<div class="cta" :class="{ overflow: ctaOverflow }">
+				<a ref="btn" href="#" class="btn">
+					<span class="overflow">
+						<img ref="btnArrow" class="btn__arrow" src="@/assets/svg/arrow.svg" alt="" />
+					</span>
+
+					<span class="overflow">
+						<span ref="btnText" class="btn__text">download cv</span>
+					</span>
 				</a>
+
 				<p class="write">
-					or write to
-					<a ref="mail" class="link" href="znvygb=uryyb;cnyrtybj:qri">uryyb;cnyrtybj:qri</a>
+					<span class="overflow">
+						<span ref="write">or write to</span>
+					</span>
+
+					&#32;
+
+					<span class="overflow">
+						<a ref="mail" class="link" href="znvygb=uryyb;cnyrtybj:qri">uryyb;cnyrtybj:qri</a>
+					</span>
 				</p>
 			</div>
+
 			<div class="socials">
 				<a
-					class="github"
+					class="github overflow"
 					href="https://github.com/NukeTheMoon/"
 					target="_blank"
 					rel="noreferrer"
 					aria-label="GitHub"
 				>
-					<img src="@/assets/svg/github.svg" alt="" />
+					<img ref="github" src="@/assets/svg/github.svg" alt="" />
 				</a>
+
 				<a
-					class="linkedin"
+					class="linkedin overflow"
 					href="https://www.linkedin.com/in/bartoszjedrasik/"
 					target="_blank"
 					rel="noreferrer"
 					aria-label="LinkedIn"
 				>
-					<img src="@/assets/svg/linkedin.svg" alt="" />
+					<img ref="linkedin" src="@/assets/svg/linkedin.svg" alt="" />
 				</a>
 			</div>
 		</div>
@@ -50,14 +88,26 @@
 
 <script>
 import { defineComponent, getCurrentInstance, onMounted, ref } from '@vue/composition-api';
-import { gsap, Power3 } from 'gsap/all';
+import { Expo, gsap, Linear, Power3, Power4 } from 'gsap/all';
 
 import { rot13 } from '@/helpers/rot13';
 
 export default defineComponent({
 	setup() {
-		const mail = ref();
-		const greet = ref();
+		const greet = ref(),
+			intro1 = ref(),
+			intro2 = ref(),
+			intro3 = ref(),
+			intro4 = ref(),
+			intro5 = ref(),
+			btn = ref(),
+			btnArrow = ref(),
+			btnText = ref(),
+			write = ref(),
+			mail = ref(),
+			github = ref(),
+			linkedin = ref();
+		const ctaOverflow = ref(true);
 
 		function decodeMail() {
 			if (!mail.value) return;
@@ -71,7 +121,41 @@ export default defineComponent({
 
 			if (!vm) return;
 
-			gsap.from(vm.greet, { y: -100, duration: 1.5, ease: Power3.easeOut, repeat: -1, delay: 0.3 });
+			const defaults = {
+				duration: 1,
+				ease: Power4.easeInOut,
+			};
+			const tl = gsap.timeline({ defaults });
+
+			tl.from(vm.greet, { yPercent: -101, duration: 2, ease: Expo.easeInOut });
+			tl.from(vm.intro1, { xPercent: -101 }, '<1');
+			tl.from(vm.intro2, { xPercent: -103 }, '>-0.6');
+			tl.from(vm.intro3, { xPercent: -101 }, '<0.3');
+			tl.from(vm.intro4, { xPercent: -101 }, '>-0.6');
+			tl.from(vm.intro5, { xPercent: -101 }, '<0.3');
+			tl.from(vm.btn, { xPercent: -101, onComplete: disableCtaOverflow }, '<0.3');
+			tl.from(vm.btnArrow, { yPercent: -101 }, '<0.3');
+			tl.from(vm.btnText, { yPercent: -101 }, '<0.3');
+			tl.from(vm.write, { xPercent: -101 }, '>-0.3');
+			tl.from(vm.mail, { xPercent: -101 }, '>-0.6');
+			tl.from(vm.github, { yPercent: -101, duration: 0.7 }, '>-0.6');
+			tl.from(vm.linkedin, { yPercent: -101, duration: 0.7 }, '>-0.6');
+			tl.to(
+				vm.btn,
+				{
+					scaleX: 1.05,
+					scaleY: 1.05,
+					boxShadow: '0 0 7em 0 rgba(255, 255, 255, 0.1)',
+					ease: Power3.easeOut,
+					repeat: 1,
+					yoyo: true,
+				},
+				'>',
+			);
+		}
+
+		function disableCtaOverflow() {
+			ctaOverflow.value = false;
 		}
 
 		onMounted(() => {
@@ -80,8 +164,20 @@ export default defineComponent({
 		});
 
 		return {
-			mail,
 			greet,
+			intro1,
+			intro2,
+			intro3,
+			intro4,
+			intro5,
+			btn,
+			btnArrow,
+			btnText,
+			write,
+			mail,
+			github,
+			linkedin,
+			ctaOverflow,
 		};
 	},
 });
@@ -112,57 +208,55 @@ export default defineComponent({
 	letter-spacing: -0.025em;
 	margin-bottom: 11.2rem;
 
-	span {
-		color: $color-accent;
-		font-weight: 700;
-	}
+	// b {
+	// 	color: $color-accent;
+	// }
 
-	strong {
+	strong,
+	b {
 		font-weight: 700;
 	}
 }
 
-.btn {
-	$height: 13rem;
+.cta {
+	$offset: -2.2rem;
 
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 44rem;
-	height: $height;
-	text-decoration: none;
-	border-radius: $height;
-	background-color: $color-gray-5;
-	margin-left: -1.2rem;
-	margin-bottom: 3.4rem;
+	margin-bottom: 10rem;
+	padding-left: $offset * -1;
+	margin-left: $offset;
 
-	span {
-		color: $color-white;
-		font-size: 4.6rem;
-		font-weight: 700;
-		letter-spacing: -0.025em;
-		line-height: 4.6rem;
-	}
+	.btn {
+		$height: 13rem;
 
-	.arrow {
-		height: 3.9rem;
-		margin-right: 2.8rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 44rem;
+		height: $height;
+		text-decoration: none;
+		border-radius: $height;
+		background-color: $color-gray-5;
+		margin-left: $offset;
+		margin-bottom: 3.4rem;
+
+		&__text {
+			color: $color-white;
+			font-size: 4.6rem;
+			font-weight: 700;
+			letter-spacing: -0.025em;
+			line-height: 4.6rem;
+		}
+
+		&__arrow {
+			height: 3.9rem;
+			margin-right: 2.8rem;
+		}
 	}
 }
 
 .write {
 	font-size: 2.4rem;
 	letter-spacing: -0.01em;
-}
-
-.link {
-	color: $color-accent;
-	text-decoration: none;
-	font-weight: 700;
-}
-
-.cta {
-	margin-bottom: 10rem;
 }
 
 .socials {
