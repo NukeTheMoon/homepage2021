@@ -1,6 +1,6 @@
 <template>
 	<Layout>
-		<div class="moon"></div>
+		<moon />
 
 		<div class="type">
 			<h1 class="greet">
@@ -90,9 +90,11 @@
 import { defineComponent, getCurrentInstance, onMounted, ref } from '@vue/composition-api';
 import { Expo, gsap, Linear, Power3, Power4 } from 'gsap/all';
 
+import Moon from '@/components/Moon';
 import { rot13 } from '@/helpers/rot13';
 
 export default defineComponent({
+	components: { Moon },
 	setup() {
 		const greet = ref(),
 			intro1 = ref(),
@@ -128,15 +130,15 @@ export default defineComponent({
 			const tl = gsap.timeline({ defaults });
 
 			tl.from(vm.greet, { yPercent: -101, duration: 2, ease: Expo.easeInOut });
-			tl.from(vm.intro1, { xPercent: -101 }, '<1');
+			tl.from(vm.intro1, { xPercent: -101 }, '<0.8');
 			tl.from(vm.intro2, { xPercent: -103 }, '>-0.6');
-			tl.from(vm.intro3, { xPercent: -101 }, '<0.5');
+			tl.from(vm.intro3, { xPercent: -101 }, '<0.2');
 			tl.from(vm.intro4, { xPercent: -101 }, '>-0.6');
-			tl.from(vm.intro5, { xPercent: -101 }, '<0.5');
-			tl.from(vm.btn, { xPercent: -101, onComplete: disableCtaOverflow }, '<0.3');
-			tl.from(vm.btnArrow, { yPercent: -101 }, '<0.3');
-			tl.from(vm.btnText, { yPercent: -101 }, '<0.3');
-			tl.from(vm.write, { xPercent: -101 }, '>-0.3');
+			tl.from(vm.intro5, { xPercent: -101 }, '<0.2');
+			tl.from(vm.btn, { xPercent: -101, onComplete: disableCtaOverflow }, '<0.2');
+			tl.from(vm.btnArrow, { yPercent: -101 }, '<0.2');
+			tl.from(vm.btnText, { yPercent: -101 }, '<0.2');
+			tl.from(vm.write, { xPercent: -101 }, '<0.3');
 			tl.from(vm.mail, { xPercent: -101 }, '>-0.6');
 			tl.from(vm.github, { yPercent: -102, duration: 0.7 }, '>-0.6');
 			tl.from(vm.linkedin, { yPercent: -102, duration: 0.7 }, '>-0.6');
@@ -189,7 +191,7 @@ export default defineComponent({
 // }
 
 .type {
-	padding: 8rem 9rem 8rem;
+	padding: 0 9rem 8rem;
 }
 
 .greet {
