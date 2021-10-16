@@ -56,7 +56,7 @@
 					&#32;
 
 					<span class="overflow">
-						<a ref="mail" class="link" href="znvygb=uryyb;cnyrtybj:qri">uryyb;cnyrtybj:qri</a>
+						<a ref="mail" class="write__mail link" href="znvygb=uryyb;cnyrtybj:qri">uryyb;cnyrtybj:qri</a>
 					</span>
 				</p>
 			</div>
@@ -259,6 +259,7 @@ export default defineComponent({
 .write {
 	font-size: 2.4rem;
 	letter-spacing: -0.01em;
+	transform: translate3d(0, 0, 0); // flicker fix
 }
 
 .socials {
