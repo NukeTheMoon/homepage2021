@@ -1,8 +1,10 @@
 <svg width="20" height="20" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
       <linearGradient id="lg" x1="0" x2="1" y1="0" y2="1">
-        <stop class="stop1" offset="0%"/>
-        <stop class="stop2" offset="75%"/>
+        <stop class="stop1" offset="0" />
+        <stop class="stop2" offset="0.75">
+          <animate attributeName="offset" from="1.0" to="1.0" dur="1ms" begin="1ms" repeatCount="indefinite" />
+        </stop>
       </linearGradient>
 
       <style type="text/css"><![CDATA[
