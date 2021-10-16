@@ -4,7 +4,7 @@
 
 <script>
 import { defineComponent, getCurrentInstance, onMounted } from '@vue/composition-api';
-import * as PIXI from 'pixi.js';
+// import * as PIXI from 'pixi.js';
 
 export default defineComponent({
 	setup() {
@@ -13,21 +13,25 @@ export default defineComponent({
 
 			if (!vm) return;
 
-			const pixi = new PIXI.Application({
-				antialias: true,
-				backgroundAlpha: 0,
-				width: vm.$el.offsetWidth,
-				height: vm.$el.offsetHeight,
-			});
+			if (process.isClient) {
+				import('pixi.js').then(PIXI => {
+					const pixi = new PIXI.Application({
+						antialias: true,
+						backgroundAlpha: 0,
+						width: vm.$el.scrollWidth,
+						height: vm.$el.offsetHeight,
+					});
 
-			vm.$el.appendChild(pixi.view);
+					vm.$el.appendChild(pixi.view);
 
-			const c = new PIXI.Graphics();
-			c.beginFill(0xffffff);
-			c.drawCircle(pixi.screen.width / 2, pixi.screen.width / 2, 153); // need px by vm converter
-			c.endFill();
+					const c = new PIXI.Graphics();
+					c.beginFill(0xffffff);
+					c.drawCircle(pixi.screen.width / 2, pixi.screen.width / 2, 153); // need px by vm converter
+					c.endFill();
 
-			pixi.stage.addChild(c);
+					pixi.stage.addChild(c);
+				});
+			}
 		});
 
 		return {};
