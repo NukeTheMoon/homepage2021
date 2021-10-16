@@ -1,9 +1,9 @@
 html {
-  $gradient: linear-gradient(315deg, #282828, #262626, #232323, #212121, #1f1f1f, #1c1c1c, #1a1a1a, #181818);
+  $gradient: linear-gradient(315deg, #282828, #090909);
 
 	background: $gradient, url('~@/assets/svg/noise.svg');
 	background-attachment: fixed;
-  background-blend-mode: screen;
+	background-blend-mode: screen;
 
 	font-family: $font;
 	font-size: 10/750*100vw;
