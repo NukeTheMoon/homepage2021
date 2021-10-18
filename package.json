@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@vue/composition-api": "^1.0.0-rc.8",
+    "colr": "^1.2.2",
     "firebase": "^9.1.2",
     "gridsome": "^0.7.0",
     "gsap": "^3.7.1",

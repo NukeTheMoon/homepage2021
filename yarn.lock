@@ -3246,6 +3246,18 @@ color@^3.0.0, color@^3.1.2:
     color-convert "^1.9.3"
     color-string "^1.6.0"
 
+colr-convert@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/colr-convert/-/colr-convert-1.0.5.tgz#b4a22c9322dfa238d2a80aa90736c11271841b71"
+  integrity sha1-tKIskyLfojjSqAqpBzbBEnGEG3E=
+
+colr@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/colr/-/colr-1.2.2.tgz#6003289b8e3c53f60824ec7bbc08e033878ad4f6"
+  integrity sha1-YAMom448U/YIJOx7vAjgM4eK1PY=
+  dependencies:
+    colr-convert "^1.0.5"
+
 columnify@^1.5.4:
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/columnify/-/columnify-1.5.4.tgz#4737ddf1c7b69a8a7c340570782e947eec8e78bb"

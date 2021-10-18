@@ -1,6 +1,6 @@
 <template>
 	<Layout>
-		<moon />
+		<pale-moon />
 
 		<div class="type">
 			<h1 class="greet">
@@ -90,11 +90,11 @@
 import { defineComponent, getCurrentInstance, onMounted, ref } from '@vue/composition-api';
 import { Expo, gsap, Linear, Power3, Power4 } from 'gsap/all';
 
-import Moon from '@/components/Moon';
+import PaleMoon from '@/components/PaleMoon';
 import { rot13 } from '@/helpers/rot13';
 
 export default defineComponent({
-	components: { Moon },
+	components: { PaleMoon },
 	setup() {
 		const greet = ref(),
 			intro1 = ref(),
