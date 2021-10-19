@@ -34,15 +34,30 @@ export default defineComponent({
 				rect.blendMode = PIXI.BLEND_MODES.SCREEN;
 				pixi.stage.addChild(rect);
 
+				const seeds = [
+					0.02427945462187342, 0.04975750278181321, 0.07347499732114933, 0.0007768083588748587,
+					0.08016578774956937, 0.03651828685871774, 0.07480199919126793, 0.06325890990877678,
+					0.0678807679102282, 0.05930468916680363, 0.06439113054845055, 0.026350829414593012,
+					0.03233621911450568, 0.0370197515504815, 0.05515579147063132, 0.07003763056530557,
+				];
+				let seedNo = 0;
+
+				function cycleSeed() {
+					seedNo = seedNo < seeds.length - 1 ? ++seedNo : 0;
+
+					return seeds[seedNo];
+				}
+
 				const noiseFilter = new PIXI.filters.NoiseFilter();
 				noiseFilter.noise = 0.1;
-				noiseFilter.seed = Math.random() / 10;
+				noiseFilter.seed = cycleSeed();
 				rect.filters = [noiseFilter];
 
 				const ticker = PIXI.Ticker.shared;
+				ticker.minFPS = 8;
 				ticker.maxFPS = 8;
 				ticker.add(() => {
-					noiseFilter.seed = Math.random() / 10;
+					noiseFilter.seed = cycleSeed();
 				});
 
 				vm.$el.appendChild(pixi.view);
