@@ -1,12 +1,12 @@
 html {
 	font-family: $font;
-	font-size: 10/750*100vw;
+	font-size: 10/1334*100vh;
 	font-weight: 400;
 	color: $color-white;
 
-  @include min-md {
-    font-size: 10/1920*100vw;
-  }
+	@include landscape {
+		font-size: 10/1080*100vh;
+	}
 }
 
 span, strong, a, b {
@@ -15,6 +15,7 @@ span, strong, a, b {
 
 body {
 	position: relative;
+	overflow-x: hidden;
 }
 
 .overflow {

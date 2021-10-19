@@ -33,6 +33,7 @@ export default defineComponent({
 
 	@include landscape {
 		flex-direction: row;
+		align-items: center;
 	}
 
 	&.loaded {

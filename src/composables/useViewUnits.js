@@ -25,7 +25,6 @@ function initViewUnitsSystem() {
 	};
 
 	onMounted(() => {
-		console.log('mounted');
 		updateViewUnits();
 		if (process.isClient) {
 			window.addEventListener('resize', updateViewUnits);

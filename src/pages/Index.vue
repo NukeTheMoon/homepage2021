@@ -195,6 +195,10 @@ export default defineComponent({
 
 .type {
 	padding: 0 9rem 8rem;
+
+	@include landscape {
+		padding: 9rem 8rem;
+	}
 }
 
 .greet {

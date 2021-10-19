@@ -3,41 +3,52 @@
 </template>
 
 <script>
-import { defineComponent, getCurrentInstance, onMounted } from '@vue/composition-api';
+import { defineComponent, getCurrentInstance, onBeforeUnmount, onMounted, watch } from '@vue/composition-api';
+
+import { useViewUnits } from '@/composables/useViewUnits';
 
 export default defineComponent({
 	setup() {
-		onMounted(() => {
+		const { viewportWidth, viewportHeight } = useViewUnits();
+
+		onMounted(async () => {
 			const { proxy: vm } = getCurrentInstance();
 
 			if (!vm) return;
 
 			if (process.isClient) {
-				import('pixi.js').then(PIXI => {
-					const pixi = new PIXI.Application({
-						backgroundAlpha: 0,
-						width: vm.$el.scrollWidth,
-						height: vm.$el.offsetHeight,
-					});
+				const PIXI = await import('pixi.js');
+				const pixi = new PIXI.Application({
+					backgroundAlpha: 0,
+					resizeTo: vm.$el,
+				});
 
-					const g = new PIXI.Graphics();
-					g.beginFill(0x000000);
-					g.drawRect(0, 0, pixi.screen.width, pixi.screen.height);
-					g.blendMode = PIXI.BLEND_MODES.SCREEN;
-					pixi.stage.addChild(g);
+				function updateRect() {
+					rect.beginFill(0x000000);
+					rect.drawRect(0, 0, pixi.screen.width, pixi.screen.height);
+					rect.endFill();
+				}
 
-					const noiseFilter = new PIXI.filters.NoiseFilter();
-					noiseFilter.noise = 0.1;
+				const rect = new PIXI.Graphics();
+				updateRect();
+				rect.blendMode = PIXI.BLEND_MODES.SCREEN;
+				pixi.stage.addChild(rect);
+
+				const noiseFilter = new PIXI.filters.NoiseFilter();
+				noiseFilter.noise = 0.1;
+				noiseFilter.seed = Math.random() / 10;
+				rect.filters = [noiseFilter];
+
+				const ticker = PIXI.Ticker.shared;
+				ticker.maxFPS = 8;
+				ticker.add(() => {
 					noiseFilter.seed = Math.random() / 10;
-					g.filters = [noiseFilter];
+				});
 
-					const ticker = PIXI.Ticker.shared;
-					ticker.maxFPS = 8;
-					ticker.add(() => {
-						noiseFilter.seed = Math.random() / 10;
-					});
+				vm.$el.appendChild(pixi.view);
 
-					vm.$el.appendChild(pixi.view);
+				watch([viewportWidth, viewportHeight], () => {
+					updateRect();
 				});
 			}
 		});
@@ -49,19 +60,17 @@ export default defineComponent({
 
 <style lang="scss">
 .pale-noise {
-	position: absolute;
-	left: 0;
-	top: 0;
-	height: 100%;
 	width: 100%;
-	$gradient: linear-gradient(315deg, #282828, #090909);
-
-	background: $gradient;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: linear-gradient(315deg, #282828, #090909);
 	background-attachment: fixed;
 
 	canvas {
-		mix-blend-mode: screen;
 		opacity: 0.8;
+		mix-blend-mode: screen;
 	}
 }
 </style>
