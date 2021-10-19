@@ -1,5 +1,7 @@
 <template>
 	<Layout>
+		<pale-noise />
+
 		<pale-moon />
 
 		<div class="type">
@@ -91,10 +93,11 @@ import { defineComponent, getCurrentInstance, onMounted, ref } from '@vue/compos
 import { Expo, gsap, Linear, Power3, Power4 } from 'gsap/all';
 
 import PaleMoon from '@/components/PaleMoon';
+import PaleNoise from '@/components/PaleNoise';
 import { rot13 } from '@/helpers/rot13';
 
 export default defineComponent({
-	components: { PaleMoon },
+	components: { PaleMoon, PaleNoise },
 	setup() {
 		const greet = ref(),
 			intro1 = ref(),

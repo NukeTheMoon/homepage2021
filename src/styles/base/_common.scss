@@ -1,10 +1,4 @@
 html {
-  $gradient: linear-gradient(315deg, #282828, #090909);
-
-	background: $gradient, url('~@/assets/svg/noise.svg');
-	background-attachment: fixed;
-	background-blend-mode: screen;
-
 	font-family: $font;
 	font-size: 10/750*100vw;
 	font-weight: 400;
@@ -13,14 +7,14 @@ html {
   @include min-md {
     font-size: 10/1920*100vw;
   }
-
-  &:not(.firefox) {
-    background: $gradient, url('~@/assets/svg/noise-anim.svg') !important;
-  }
 }
 
 span, strong, a, b {
 	display: inline-block;
+}
+
+body {
+	position: relative;
 }
 
 .overflow {

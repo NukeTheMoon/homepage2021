@@ -1,64 +1,32 @@
 <template>
-	<div class="pale-moon" />
+	<div class="pale-moon">
+		<g-image ref="core" class="pale-moon__core" src="@/assets/png/moon.png" alt="" />
+		<g-image ref="glow" class="pale-moon__glow" src="@/assets/png/glow.png" alt="" />
+	</div>
 </template>
 
 <script>
-import { defineComponent, getCurrentInstance, onMounted } from '@vue/composition-api';
-import Colr from 'colr';
-
-import { useViewUnits } from '@/composables/useViewUnits';
+import { defineComponent, getCurrentInstance, onMounted, ref } from '@vue/composition-api';
+import gsap, { Power3 } from 'gsap/gsap-core';
 
 export default defineComponent({
 	setup() {
-		const colr = new Colr();
-		const { vwPx } = useViewUnits();
+		const core = ref(),
+			glow = ref();
 
 		onMounted(() => {
 			const { proxy: vm } = getCurrentInstance();
 
 			if (!vm) return;
 
-			if (process.isClient) {
-				import('pixi.js').then(PIXI => {
-					const pixi = new PIXI.Application({
-						antialias: true,
-						backgroundAlpha: 0,
-						width: vm.$el.scrollWidth,
-						height: vm.$el.offsetHeight,
-					});
-					const color = '#d2314b';
+			const tl = gsap.timeline();
 
-					function gradient(from, to) {
-						const c = document.createElement('canvas');
-						const ctx = c.getContext('2d');
-						const grd = ctx.createLinearGradient(0, 0, 100, 100);
-
-						grd.addColorStop(0, from);
-						grd.addColorStop(1, to);
-						ctx.fillStyle = grd;
-						ctx.fillRect(0, 0, 100, 100);
-
-						return new PIXI.Texture.from(c);
-					}
-
-					function hexRgba(hex, a) {
-						const rgb = colr.fromHex(hex).toRgbArray();
-
-						return `rgba(${rgb.join(', ')}, ${a})`;
-					}
-
-					vm.$el.appendChild(pixi.view);
-
-					const c = new PIXI.Graphics()
-						.beginTextureFill(gradient(hexRgba(color, 1), hexRgba(color, 0)))
-						.drawCircle(pixi.screen.width / 2, pixi.screen.width / 2, vwPx(153));
-
-					pixi.stage.addChild(c);
-				});
-			}
+			tl.from(vm.$el, { scaleX: 0.8, scaleY: 0.8, yPercent: -20, opacity: 0, duration: 3 });
+			tl.to(vm.core, { opacity: 0.8, ease: Power3.easeInOut, duration: 4, repeat: -1, yoyo: true }, '>-1.5');
+			tl.to(vm.glow, { opacity: 0.25, ease: Power3.easeInOut, duration: 4, repeat: -1, yoyo: true }, '<');
 		});
 
-		return {};
+		return { core, glow };
 	},
 });
 </script>
@@ -66,5 +34,28 @@ export default defineComponent({
 <style lang="scss">
 .pale-moon {
 	height: 55rem;
+	position: relative;
+	overflow: visible;
+
+	&__core,
+	&__glow {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(calc(-50% + 0.5px), calc(-50% + 0.5px));
+	}
+
+	&__core {
+		width: 30.8rem;
+		height: 30.8rem;
+		opacity: 0.6;
+	}
+
+	&__glow {
+		width: 114rem;
+		height: 91.4rem;
+		max-width: none;
+		opacity: 0.1;
+	}
 }
 </style>
