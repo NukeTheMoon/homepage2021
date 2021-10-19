@@ -1,6 +1,6 @@
 <template>
 	<div class="pale-moon">
-		<g-image ref="core" class="pale-moon__core" src="@/assets/png/moon.png" alt="" />
+		<g-image ref="core" class="pale-moon__core" src="@/assets/png/core.png" alt="" />
 		<g-image ref="glow" class="pale-moon__glow" src="@/assets/png/glow.png" alt="" />
 	</div>
 </template>
@@ -22,8 +22,8 @@ export default defineComponent({
 			const tl = gsap.timeline();
 
 			tl.from(vm.$el, { scaleX: 0.8, scaleY: 0.8, yPercent: -20, opacity: 0, duration: 3 });
-			tl.to(vm.core, { opacity: 0.8, ease: Power3.easeInOut, duration: 4, repeat: -1, yoyo: true }, '>-1.5');
-			tl.to(vm.glow, { opacity: 0.25, ease: Power3.easeInOut, duration: 4, repeat: -1, yoyo: true }, '<');
+			tl.to(vm.core, { opacity: 0.8, ease: Power3.easeInOut, duration: 5, repeat: -1, yoyo: true }, '>-1.5');
+			tl.to(vm.glow, { opacity: 0.25, ease: Power3.easeInOut, duration: 5, repeat: -1, yoyo: true }, '<');
 		});
 
 		return { core, glow };
@@ -44,7 +44,7 @@ export default defineComponent({
 
 	@include landscape {
 		margin-top: -40rem;
-		margin-right: -10rem;
+		margin-right: -15rem;
 	}
 
 	&__core {
@@ -58,9 +58,10 @@ export default defineComponent({
 	}
 
 	&__glow {
-		width: 114rem;
-		height: 91.4rem;
-		max-width: none;
+		min-width: 114rem;
+		max-width: 114rem;
+		min-height: 91.4rem;
+		max-height: 91.4rem;
 		opacity: 0.1;
 	}
 }

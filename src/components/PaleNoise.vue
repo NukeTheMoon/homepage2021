@@ -65,8 +65,12 @@ export default defineComponent({
 	position: absolute;
 	top: 0;
 	left: 0;
-	background: linear-gradient(315deg, #282828, #090909);
+	background: linear-gradient(315deg, $color-gradient-1, $color-gradient-2);
 	background-attachment: fixed;
+
+	@include landscape {
+		background: linear-gradient(to top left, $color-gradient-1, $color-gradient-2);
+	}
 
 	canvas {
 		opacity: 0.8;

@@ -66,7 +66,7 @@
 			<div class="socials">
 				<a
 					class="github overflow"
-					href="https://github.com/NukeTheMoon/"
+					href="https://github.com/NukeTheMoon/homepage2021/"
 					target="_blank"
 					rel="noreferrer"
 					aria-label="GitHub"
@@ -150,13 +150,15 @@ export default defineComponent({
 				{
 					scaleX: 1.15,
 					scaleY: 1.15,
-					boxShadow: '0 0 7em 0 rgba(255, 255, 255, 0.1)',
+					boxShadow: '0 0 7rem 0 rgba(255, 255, 255, 0.1)',
 					ease: Power3.easeOut,
 					repeat: 1,
 					yoyo: true,
 				},
 				'>',
 			);
+			tl.to(vm.btnArrow, { yPercent: 102, ease: Power4.easeIn, duration: 0.75 }, '<0.5');
+			tl.fromTo(vm.btnArrow, { yPercent: -102 }, { yPercent: 0, ease: Power4.easeOut, duration: 0.75 }, '>');
 		}
 
 		function disableCtaOverflow() {
