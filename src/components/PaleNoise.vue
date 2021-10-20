@@ -4,6 +4,7 @@
 
 <script>
 import { defineComponent, getCurrentInstance, onBeforeUnmount, onMounted, watch } from '@vue/composition-api';
+import { Tween } from 'gsap/gsap-core';
 
 import { useViewUnits } from '@/composables/useViewUnits';
 
@@ -65,6 +66,8 @@ export default defineComponent({
 				watch([viewportWidth, viewportHeight], () => {
 					updateRect();
 				});
+
+				Tween.to(vm.$el, { opacity: 1, duration: 4 });
 			}
 		});
 
@@ -75,20 +78,22 @@ export default defineComponent({
 
 <style lang="scss">
 .pale-noise {
-	width: 100%;
-	height: 100%;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
+	right: 0;
+	bottom: 0;
 	background: linear-gradient(315deg, $color-gradient-1, $color-gradient-2);
 	background-attachment: fixed;
+	overflow: hidden;
+	opacity: 0;
 
 	@include landscape {
 		background: linear-gradient(to top left, $color-gradient-1, $color-gradient-2);
 	}
 
 	canvas {
-		opacity: 0.8;
+		opacity: 0.9;
 		mix-blend-mode: screen;
 	}
 }

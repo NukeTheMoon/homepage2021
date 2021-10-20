@@ -55,9 +55,7 @@
 						<span ref="write">or write to</span>
 					</span>
 
-					&#32;
-
-					<span class="overflow">
+					<span :class="{ overflow: mailOverflow }">
 						<a ref="mail" class="write__mail link" href="znvygb=uryyb;cnyrtybj:qri">uryyb;cnyrtybj:qri</a>
 					</span>
 				</p>
@@ -65,7 +63,8 @@
 
 			<div class="socials">
 				<a
-					class="github overflow"
+					class="github"
+					:class="{ overflow: socialsOverflow }"
 					href="https://github.com/NukeTheMoon/homepage2021/"
 					target="_blank"
 					rel="noreferrer"
@@ -75,7 +74,8 @@
 				</a>
 
 				<a
-					class="linkedin overflow"
+					class="linkedin"
+					:class="{ overflow: socialsOverflow }"
 					href="https://www.linkedin.com/in/bartoszjedrasik/"
 					target="_blank"
 					rel="noreferrer"
@@ -90,7 +90,8 @@
 
 <script>
 import { defineComponent, getCurrentInstance, onMounted, ref } from '@vue/composition-api';
-import { Expo, gsap, Linear, Power3, Power4 } from 'gsap/all';
+import { Expo, gsap, Linear, Power2, Power3, Power4, TimelineMax, TweenLite } from 'gsap/all';
+import { TweenMax } from 'gsap/gsap-core';
 
 import PaleMoon from '@/components/PaleMoon';
 import PaleNoise from '@/components/PaleNoise';
@@ -113,6 +114,15 @@ export default defineComponent({
 			github = ref(),
 			linkedin = ref();
 		const ctaOverflow = ref(true);
+		const mailOverflow = ref(true);
+		const socialsOverflow = ref(true);
+		const arrowTl = gsap.timeline({ paused: true });
+		const introTl = gsap.timeline({
+			defaults: {
+				duration: 1,
+				ease: Power4.easeInOut,
+			},
+		});
 
 		function decodeMail() {
 			if (!mail.value) return;
@@ -121,31 +131,25 @@ export default defineComponent({
 			mail.value.innerText = rot13(mail.value.innerText);
 		}
 
-		function animate() {
+		function initIntro() {
 			const { proxy: vm } = getCurrentInstance();
 
 			if (!vm) return;
 
-			const defaults = {
-				duration: 1,
-				ease: Power4.easeInOut,
-			};
-			const tl = gsap.timeline({ defaults });
-
-			tl.from(vm.greet, { yPercent: -101, duration: 2, ease: Expo.easeInOut });
-			tl.from(vm.intro1, { xPercent: -101 }, '<0.8');
-			tl.from(vm.intro2, { xPercent: -103 }, '>-0.6');
-			tl.from(vm.intro3, { xPercent: -101 }, '<0.2');
-			tl.from(vm.intro4, { xPercent: -101 }, '>-0.6');
-			tl.from(vm.intro5, { xPercent: -101 }, '<0.2');
-			tl.from(vm.btn, { xPercent: -101, onComplete: disableCtaOverflow }, '<0.2');
-			tl.from(vm.btnArrow, { yPercent: -101 }, '<0.2');
-			tl.from(vm.btnText, { yPercent: -101 }, '<0.2');
-			tl.from(vm.write, { xPercent: -101 }, '<0.3');
-			tl.from(vm.mail, { xPercent: -101 }, '>-0.6');
-			tl.from(vm.github, { yPercent: -102, duration: 0.7 }, '>-0.6');
-			tl.from(vm.linkedin, { yPercent: -102, duration: 0.7 }, '>-0.6');
-			tl.to(
+			introTl.from(vm.greet, { yPercent: -101, duration: 2, ease: Expo.easeInOut });
+			introTl.from(vm.intro1, { xPercent: -101 }, '<0.8');
+			introTl.from(vm.intro2, { xPercent: -103 }, '>-0.6');
+			introTl.from(vm.intro3, { xPercent: -101 }, '<0.2');
+			introTl.from(vm.intro4, { xPercent: -101 }, '>-0.6');
+			introTl.from(vm.intro5, { xPercent: -101 }, '<0.2');
+			introTl.from(vm.btn, { xPercent: -101, onComplete: disableCtaOverflow }, '<0.2');
+			introTl.from(vm.btnArrow, { yPercent: -101 }, '<0.2');
+			introTl.from(vm.btnText, { yPercent: -101 }, '<0.2');
+			introTl.from(vm.write, { xPercent: -101 }, '<0.3');
+			introTl.from(vm.mail, { xPercent: -101, onComplete: disableMailOverflow }, '>-0.6');
+			introTl.from(vm.github, { yPercent: -102, duration: 0.7 }, '>-0.6');
+			introTl.from(vm.linkedin, { yPercent: -102, duration: 0.7, onComplete: disableSocialsOverflow }, '>-0.6');
+			introTl.to(
 				vm.btn,
 				{
 					scaleX: 1.15,
@@ -157,17 +161,65 @@ export default defineComponent({
 				},
 				'>',
 			);
-			tl.to(vm.btnArrow, { yPercent: 102, ease: Power4.easeIn, duration: 0.5 }, '<0.2');
-			tl.fromTo(vm.btnArrow, { yPercent: -102 }, { yPercent: 0, ease: Power4.easeOut, duration: 0.5 }, '>');
+			introTl.to(vm.btnArrow, { yPercent: 102, ease: Power4.easeIn, duration: 0.4 }, '<0.2');
+			introTl.fromTo(vm.btnArrow, { yPercent: -102 }, { yPercent: 0, ease: Power4.easeOut, duration: 0.4 }, '>');
 		}
 
 		function disableCtaOverflow() {
 			ctaOverflow.value = false;
 		}
 
+		function disableMailOverflow() {
+			mailOverflow.value = false;
+		}
+
+		function disableSocialsOverflow() {
+			socialsOverflow.value = false;
+		}
+
+		function initHover() {
+			const { proxy: vm } = getCurrentInstance();
+
+			if (!vm) return;
+
+			arrowTl.to(vm.btnArrow, { yPercent: 102, ease: Power4.easeIn, duration: 0.4 });
+			arrowTl.fromTo(vm.btnArrow, { yPercent: -102 }, { yPercent: 0, ease: Power4.easeOut, duration: 0.4 }, '>');
+
+			vm.btn.addEventListener('mouseenter', () => {
+				if (!gsap.isTweening(vm.btnArrow)) {
+					arrowTl.play(0);
+				}
+
+				if (!ctaOverflow.value) {
+					TweenMax.to(vm.btn, {
+						scaleX: 1.15,
+						scaleY: 1.15,
+						boxShadow: '0 0 7rem 0 rgba(255, 255, 255, 0.1)',
+						ease: Power3.easeOut,
+						duration: 0.5,
+						overwrite: 'auto',
+					});
+				}
+			});
+
+			vm.btn.addEventListener('mouseleave', () => {
+				if (!ctaOverflow.value) {
+					TweenMax.to(vm.btn, {
+						scaleX: 1,
+						scaleY: 1,
+						boxShadow: '0 0 0rem 0 rgba(255, 255, 255, 0.0)',
+						ease: Power3.easeOut,
+						duration: 0.5,
+						overwrite: 'auto',
+					});
+				}
+			});
+		}
+
 		onMounted(() => {
 			decodeMail();
-			animate();
+			initIntro();
+			initHover();
 		});
 
 		return {
@@ -185,43 +237,37 @@ export default defineComponent({
 			github,
 			linkedin,
 			ctaOverflow,
+			mailOverflow,
+			socialsOverflow,
 		};
 	},
 });
 </script>
 
 <style lang="scss">
-// .moon {
-// 	height: 54.8rem;
-// }
-
 .type {
-	padding: 0 9rem 8rem;
-
 	@include landscape {
 		padding: 9rem 8rem;
 	}
+
+	padding: 0 12vw 8rem;
 }
 
 .greet {
+	margin-bottom: 2.2rem;
+	position: relative;
 	font-size: 9.6rem;
 	font-weight: 700;
-	letter-spacing: -0.05em;
-	margin-bottom: 2.2rem;
-	overflow: hidden;
-	position: relative;
 	line-height: 1;
+	letter-spacing: -0.05em;
+	overflow: hidden;
 }
 
 .intro {
+	margin-bottom: 7rem;
 	font-size: 3.6rem;
 	line-height: 4.2rem;
 	letter-spacing: -0.025em;
-	margin-bottom: 11.2rem;
-
-	// b {
-	// 	color: $color-accent;
-	// }
 
 	strong,
 	b {
@@ -232,9 +278,9 @@ export default defineComponent({
 .cta {
 	$offset: -2.2rem;
 
-	margin-bottom: 10rem;
-	padding-left: $offset * -1;
+	margin-bottom: 8rem;
 	margin-left: $offset;
+	padding-left: $offset * -1;
 
 	.btn {
 		$height: 13rem;
@@ -244,23 +290,25 @@ export default defineComponent({
 		justify-content: center;
 		width: 44rem;
 		height: $height;
+		margin-bottom: 3.4rem;
+		margin-left: $offset;
 		text-decoration: none;
 		border-radius: $height;
 		background-color: $color-gray-5;
-		margin-left: $offset;
-		margin-bottom: 3.4rem;
 
 		&__text {
 			color: $color-white;
 			font-size: 4.6rem;
 			font-weight: 700;
-			letter-spacing: -0.025em;
 			line-height: 4.6rem;
+			letter-spacing: -0.025em;
+			pointer-events: none;
 		}
 
 		&__arrow {
 			height: 3.9rem;
 			margin-right: 2.8rem;
+			pointer-events: none;
 		}
 	}
 }
@@ -269,6 +317,9 @@ export default defineComponent({
 	font-size: 2.4rem;
 	letter-spacing: -0.01em;
 	transform: translate3d(0, 0, 0); // flicker fix
+	display: flex;
+	align-items: center;
+	gap: 0.8rem;
 }
 
 .socials {
@@ -281,8 +332,8 @@ export default defineComponent({
 
 .github {
 	height: 2.2rem;
-	margin-right: 4.6rem;
 	margin-top: 0.5rem;
+	margin-right: 4.6rem;
 }
 
 .linkedin {

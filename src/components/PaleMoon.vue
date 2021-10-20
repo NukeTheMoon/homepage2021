@@ -21,9 +21,9 @@ export default defineComponent({
 
 			const tl = gsap.timeline();
 
-			tl.from(vm.$el, { scaleX: 0.8, scaleY: 0.8, yPercent: -20, opacity: 0, duration: 3 });
-			tl.to(vm.core, { opacity: 0.8, ease: Power3.easeInOut, duration: 5, repeat: -1, yoyo: true }, '>-1.5');
-			tl.to(vm.glow, { opacity: 0.25, ease: Power3.easeInOut, duration: 5, repeat: -1, yoyo: true }, '<');
+			tl.from(vm.$el, { scaleX: 0.6, scaleY: 0.6, yPercent: -20, opacity: 0, duration: 3 });
+			tl.to(vm.core, { opacity: 0.9, ease: Power3.easeInOut, duration: 5, repeat: -1, yoyo: true }, '>-1.5');
+			tl.to(vm.glow, { opacity: 0.35, ease: Power3.easeInOut, duration: 5, repeat: -1, yoyo: true }, '<');
 		});
 
 		return { core, glow };
@@ -43,7 +43,7 @@ export default defineComponent({
 	margin-bottom: -20rem;
 
 	@include landscape {
-		margin-top: -50rem;
+		margin-top: -35rem;
 		margin-right: -10rem;
 	}
 
@@ -54,7 +54,7 @@ export default defineComponent({
 		transform: translate(calc(-50% + 0.5px), calc(-50% + 0.5px));
 		width: 30.8rem;
 		height: 30.8rem;
-		opacity: 0.6;
+		opacity: 0.7;
 	}
 
 	&__glow {
@@ -62,7 +62,7 @@ export default defineComponent({
 		max-width: 114rem;
 		min-height: 91.4rem;
 		max-height: 91.4rem;
-		opacity: 0.1;
+		opacity: 0.2;
 	}
 }
 </style>

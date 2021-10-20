@@ -28,6 +28,11 @@
 		@content;
 	}
 }
+@mixin max-xl {
+	@media all and (max-width: map-get($breakpoints, xl)) {
+		@content;
+	}
+}
 @mixin landscape {
 	@media all and (orientation: landscape) {
 		@content;
