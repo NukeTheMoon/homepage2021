@@ -1,9 +1,10 @@
 html {
 	font-family: $font;
-	font-size: 10/1334*100vh;
+	font-size: 10/1460*100vh;
 	font-weight: 400;
 	color: $color-white;
 	background-color: $color-gray-5;
+
 
 	@include landscape {
 		font-size: 10/1080*100vh;
@@ -15,8 +16,16 @@ span, strong, a, b {
 }
 
 body {
-	position: relative;
-	overflow-x: hidden;
+	position: fixed;
+  overflow: hidden;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+img {
+  box-sizing: content-box;
 }
 
 .overflow {
@@ -48,5 +57,22 @@ body {
 	font-weight: 700;
 	overflow: visible;
 
-	@extend .hover; 
+	@extend .hover;
+}
+
+:focus-visible {
+  outline: $color-white solid 4px;
+
+  & > img {
+    outline: $color-white solid 4px;
+  }
+}
+
+.safari :focus {
+  outline: none;
+  box-shadow: 0 0 0 4px solid #fff;
+
+  & > img {
+    box-shadow: 0 0 0 4px solid #fff;
+  }
 }
