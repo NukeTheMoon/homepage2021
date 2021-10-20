@@ -16,8 +16,11 @@ function addStyleResource(rule) {
 }
 
 module.exports = {
-	siteName: 'homepage2021',
-	icon: './src/favicon.svg',
+	siteName: 'Bartek Jędrasik - paleglow.dev',
+	icon: {
+		favicon: './src/favicon.svg',
+		touchicon: './src/favicon.ico',
+	},
 	plugins: [{ use: 'gridsome-plugin-composition-api' }],
 	css: {
 		sourceMap: true,
