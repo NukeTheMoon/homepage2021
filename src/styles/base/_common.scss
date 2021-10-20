@@ -3,6 +3,7 @@ html {
 	font-size: 10/1334*100vh;
 	font-weight: 400;
 	color: $color-white;
+	background-color: $color-gray-5;
 
 	@include landscape {
 		font-size: 10/1080*100vh;
@@ -22,8 +23,30 @@ body {
 	overflow: hidden;
 }
 
+.hover {
+	position: relative;
+
+	&::before {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		height: 0;
+		width: 100%;
+		background-color: $color-accent;
+		mix-blend-mode: difference;
+		transition: height 0.1s;
+	}
+
+	&:hover::before {
+		height: 100%;
+	}
+}
+
 .link {
 	color: $color-accent;
 	text-decoration: none;
 	font-weight: 700;
+	overflow: visible;
+
+	@extend .hover; 
 }

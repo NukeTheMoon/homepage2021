@@ -43,8 +43,8 @@ export default defineComponent({
 	margin-bottom: -20rem;
 
 	@include landscape {
-		margin-top: -40rem;
-		margin-right: -15rem;
+		margin-top: -50rem;
+		margin-right: -10rem;
 	}
 
 	&__core {

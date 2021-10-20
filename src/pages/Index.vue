@@ -157,8 +157,8 @@ export default defineComponent({
 				},
 				'>',
 			);
-			tl.to(vm.btnArrow, { yPercent: 102, ease: Power4.easeIn, duration: 0.75 }, '<0.5');
-			tl.fromTo(vm.btnArrow, { yPercent: -102 }, { yPercent: 0, ease: Power4.easeOut, duration: 0.75 }, '>');
+			tl.to(vm.btnArrow, { yPercent: 102, ease: Power4.easeIn, duration: 0.5 }, '<0.2');
+			tl.fromTo(vm.btnArrow, { yPercent: -102 }, { yPercent: 0, ease: Power4.easeOut, duration: 0.5 }, '>');
 		}
 
 		function disableCtaOverflow() {
