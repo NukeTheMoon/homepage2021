@@ -19,7 +19,7 @@ module.exports = {
 	siteName: 'Bartek Jędrasik - paleglow.dev',
 	icon: {
 		favicon: './src/favicon.svg',
-		touchicon: './src/favicon.ico',
+		touchicon: './src/favicon.png',
 	},
 	plugins: [{ use: 'gridsome-plugin-composition-api' }],
 	css: {
