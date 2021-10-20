@@ -17,6 +17,7 @@ function addStyleResource(rule) {
 
 module.exports = {
 	siteName: 'Bartek Jędrasik - paleglow.dev',
+	titleTemplate: '%s',
 	icon: {
 		favicon: './src/favicon.svg',
 		touchicon: './src/favicon.png',
