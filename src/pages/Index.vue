@@ -90,7 +90,7 @@
 
 <script>
 import { defineComponent, getCurrentInstance, onMounted, ref } from '@vue/composition-api';
-import { Expo, gsap, Linear, Power2, Power3, Power4, TimelineMax, TweenLite } from 'gsap/all';
+import { Expo, gsap, Power3, Power4 } from 'gsap/all';
 import { TweenMax } from 'gsap/gsap-core';
 
 import PaleMoon from '@/components/PaleMoon';
@@ -314,11 +314,11 @@ export default defineComponent({
 }
 
 .write {
+	display: flex;
+	align-items: center;
 	font-size: 2.4rem;
 	letter-spacing: -0.01em;
 	transform: translate3d(0, 0, 0); // flicker fix
-	display: flex;
-	align-items: center;
 	gap: 0.8rem;
 }
 

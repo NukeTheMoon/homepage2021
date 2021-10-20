@@ -25,19 +25,19 @@ export default defineComponent({
 
 <style lang="scss">
 .layout {
-	display: flex;
-	height: 100%;
-	flex-direction: column;
-	width: 100%;
-	opacity: 0;
-	justify-content: center;
-	overflow: hidden;
-
 	@include landscape {
 		flex-direction: row;
 		align-items: center;
 		justify-content: normal;
 	}
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	opacity: 0;
 
 	&.loaded {
 		opacity: 1;

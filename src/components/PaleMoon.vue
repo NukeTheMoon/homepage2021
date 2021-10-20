@@ -33,27 +33,27 @@ export default defineComponent({
 
 <style lang="scss">
 .pale-moon {
-	position: relative;
-	overflow-x: hidden;
-	overflow-y: visible;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-top: -20rem;
-	margin-bottom: -20rem;
-
 	@include landscape {
 		margin-top: -35rem;
 		margin-right: -10rem;
 	}
 
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: -20rem;
+	margin-bottom: -20rem;
+	position: relative;
+	overflow-x: hidden;
+	overflow-y: visible;
+
 	&__core {
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		transform: translate(calc(-50% + 0.5px), calc(-50% + 0.5px));
 		width: 30.8rem;
 		height: 30.8rem;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(calc(-50% + 0.5px), calc(-50% + 0.5px));
 		opacity: 0.7;
 	}
 
