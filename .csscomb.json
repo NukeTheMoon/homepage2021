@@ -252,11 +252,13 @@
         "..."
       ],
       [
-          "$include max-hd",
-          "$include max-xl",
-          "$include max-lg",
-          "$include max-md",
-          "$include max-sm",
+        "$include portrait",
+        "$include landscape",
+        "$include max-hd",
+        "$include max-xl",
+        "$include max-lg",
+        "$include max-md",
+        "$include max-sm",
         "$include max-xs",
         "$include min-xs",
         "$include min-sm",

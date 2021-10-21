@@ -25,12 +25,6 @@ export default defineComponent({
 
 <style lang="scss">
 .layout {
-	@include landscape {
-		flex-direction: row;
-		align-items: center;
-		justify-content: normal;
-	}
-
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -38,6 +32,12 @@ export default defineComponent({
 	height: 100%;
 	overflow: hidden;
 	opacity: 0;
+
+	@include landscape {
+		flex-direction: row;
+		align-items: center;
+		justify-content: normal;
+	}
 
 	&.loaded {
 		opacity: 1;

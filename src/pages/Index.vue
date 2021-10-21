@@ -246,11 +246,11 @@ export default defineComponent({
 
 <style lang="scss">
 .type {
+	padding: 0 12vw 8rem;
+
 	@include landscape {
 		padding: 9rem 8rem;
 	}
-
-	padding: 0 12vw 8rem;
 }
 
 .greet {

@@ -37,9 +37,9 @@ export default defineComponent({
 
 				const seeds = [
 					0.02427945462187342, 0.04975750278181321, 0.07347499732114933, 0.0007768083588748587,
-					0.08016578774956937, 0.03651828685871774, 0.07480199919126793, 0.06325890990877678,
-					0.0678807679102282, 0.05930468916680363, 0.06439113054845055, 0.026350829414593012,
-					0.03233621911450568, 0.0370197515504815, 0.05515579147063132, 0.07003763056530557,
+					0.03651828685871774, 0.07480199919126793, 0.06325890990877678, 0.0678807679102282,
+					0.05930468916680363, 0.06439113054845055, 0.026350829414593012, 0.03233621911450568,
+					0.0370197515504815, 0.05515579147063132, 0.07003763056530557,
 				];
 				let seedNo = 0;
 
@@ -55,8 +55,8 @@ export default defineComponent({
 				rect.filters = [noiseFilter];
 
 				const ticker = PIXI.Ticker.shared;
-				ticker.minFPS = 8;
-				ticker.maxFPS = 8;
+				ticker.minFPS = 7;
+				ticker.maxFPS = 7;
 				ticker.add(() => {
 					noiseFilter.seed = cycleSeed();
 				});
@@ -78,10 +78,6 @@ export default defineComponent({
 
 <style lang="scss">
 .pale-noise {
-	@include landscape {
-		background: linear-gradient(to top left, $color-gradient-1, $color-gradient-2);
-	}
-
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -91,6 +87,10 @@ export default defineComponent({
 	opacity: 0;
 	background: linear-gradient(315deg, $color-gradient-1, $color-gradient-2);
 	background-attachment: fixed;
+
+	@include landscape {
+		background: linear-gradient(to top left, $color-gradient-1, $color-gradient-2);
+	}
 
 	canvas {
 		opacity: 0.9;

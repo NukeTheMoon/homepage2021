@@ -33,11 +33,6 @@ export default defineComponent({
 
 <style lang="scss">
 .pale-moon {
-	@include landscape {
-		margin-top: -35rem;
-		margin-right: -10rem;
-	}
-
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -46,6 +41,11 @@ export default defineComponent({
 	position: relative;
 	overflow-x: hidden;
 	overflow-y: visible;
+
+	@include landscape {
+		margin-top: -35rem;
+		margin-right: -10rem;
+	}
 
 	&__core {
 		width: 30.8rem;
