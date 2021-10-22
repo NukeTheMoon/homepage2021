@@ -6,6 +6,7 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 const path = require('path');
 let i = 0;
+const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = function (api) {
 	api.loadSource(({ addCollection }) => {
@@ -17,6 +18,8 @@ module.exports = function (api) {
 	});
 
 	api.configureWebpack(config => {
+		if (!isProd) return config;
+
 		if (i === 1) {
 			config.module.rules.push({
 				test: path.resolve(__dirname, 'node_modules/pixi.js'),
