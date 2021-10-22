@@ -6,6 +6,7 @@
 
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const path = require('path');
+const isProd = process.env.NODE_ENV === 'production';
 
 function addStyleResource(rule) {
 	rule.use('style-resource')
@@ -44,6 +45,16 @@ module.exports = {
 				cwd: process.cwd(),
 			}),
 		],
+		module: {
+			rules: isProd
+				? [
+						{
+							test: path.resolve(__dirname, 'node_modules/pixi.js'),
+							use: 'null-loader',
+						},
+				  ]
+				: [],
+		},
 	},
 	chainWebpack(config) {
 		const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];

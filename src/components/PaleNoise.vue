@@ -3,8 +3,10 @@
 </template>
 
 <script>
-import { defineComponent, getCurrentInstance, onBeforeUnmount, onMounted, watch } from '@vue/composition-api';
+import { defineComponent, getCurrentInstance, onMounted, watch } from '@vue/composition-api';
 import { Tween } from 'gsap/gsap-core';
+
+import * as PIXI from 'pixi.js';
 
 import { useViewUnits } from '@/composables/useViewUnits';
 
@@ -18,7 +20,6 @@ export default defineComponent({
 			if (!vm) return;
 
 			if (process.isClient) {
-				const PIXI = await import('pixi.js');
 				const pixi = new PIXI.Application({
 					backgroundAlpha: 0,
 					resizeTo: vm.$el,
