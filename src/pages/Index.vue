@@ -11,31 +11,29 @@
 
 			<p class="intro overflow">
 				<span class="overflow">
-					<span ref="intro1">my name is</span>
+					<span ref="intro1">
+						my name is
+						<b>Bartek</b>
+					</span>
 				</span>
 
 				&#32;
 
-				<span class="overflow">
-					<b ref="intro2">Bartek</b>
-				</span>
-
 				<br />
 
 				<span class="overflow">
-					<span ref="intro3">and I'm the</span>
+					<span ref="intro2">
+						and I'm the
+						<strong>frontend developer</strong>
+					</span>
 				</span>
 
 				&#32;
 
-				<span class="overflow">
-					<strong ref="intro4">frontend developer</strong>
-				</span>
-
 				<br />
 
 				<span class="overflow">
-					<span ref="intro5">that you're looking for.</span>
+					<span ref="intro3">that you're looking for.</span>
 				</span>
 			</p>
 
@@ -57,11 +55,12 @@
 
 				<p class="write">
 					<span class="overflow">
-						<span ref="write">or write to</span>
-					</span>
-
-					<span :class="{ overflow: mailOverflow }">
-						<a ref="mail" class="write__mail link" href="znvygb=uryyb;cnyrtybj:qri">uryyb;cnyrtybj:qri</a>
+						<span ref="write">
+							or write to
+							<a ref="mail" class="write__mail link" href="znvygb=uryyb;cnyrtybj:qri">
+								uryyb;cnyrtybj:qri
+							</a>
+						</span>
 					</span>
 				</p>
 			</div>
@@ -110,8 +109,6 @@ export default defineComponent({
 			intro1 = ref(),
 			intro2 = ref(),
 			intro3 = ref(),
-			intro4 = ref(),
-			intro5 = ref(),
 			btn = ref(),
 			btnIcon = ref(),
 			btnText = ref(),
@@ -144,15 +141,12 @@ export default defineComponent({
 
 			introTl.from(vm.greet, { yPercent: -101, duration: 2, ease: Expo.easeInOut });
 			introTl.from(vm.intro1, { xPercent: -101 }, '<0.8');
-			introTl.from(vm.intro2, { xPercent: -103 }, '>-0.6');
-			introTl.from(vm.intro3, { xPercent: -101 }, '<0.2');
-			introTl.from(vm.intro4, { xPercent: -101 }, '>-0.6');
-			introTl.from(vm.intro5, { xPercent: -101 }, '<0.2');
-			introTl.from(vm.btn, { xPercent: -101, onComplete: disableCtaOverflow }, '<0.2');
-			introTl.from(vm.btnIcon, { yPercent: -101 }, '<0.2');
-			introTl.from(vm.btnText, { yPercent: -101 }, '<0.2');
-			introTl.from(vm.write, { xPercent: -101 }, '<0.3');
-			introTl.from(vm.mail, { xPercent: -101, onComplete: disableMailOverflow }, '>-0.6');
+			introTl.from(vm.intro2, { xPercent: -101 }, '<0.4');
+			introTl.from(vm.intro3, { xPercent: -101 }, '<0.4');
+			introTl.from(vm.btn, { xPercent: -101, onComplete: disableCtaOverflow }, '<0.4');
+			introTl.from(vm.btnIcon, { yPercent: -101 }, '<0.4');
+			introTl.from(vm.btnText, { yPercent: -101 }, '<0.4');
+			introTl.from(vm.write, { xPercent: -101 }, '<0.5');
 			introTl.from(vm.github, { yPercent: -102, duration: 0.7 }, '>-0.6');
 			introTl.from(vm.linkedin, { yPercent: -102, duration: 0.7, onComplete: disableSocialsOverflow }, '>-0.6');
 			introTl.to(
@@ -173,10 +167,6 @@ export default defineComponent({
 
 		function disableCtaOverflow() {
 			ctaOverflow.value = false;
-		}
-
-		function disableMailOverflow() {
-			mailOverflow.value = false;
 		}
 
 		function disableSocialsOverflow() {
@@ -254,7 +244,7 @@ export default defineComponent({
 			iconTl.to(
 				vm.btnIcon,
 				{ yPercent: 102, ease: Power4.easeIn, onStart: download, onComplete: swapBtnIcon },
-				'>1.5',
+				'>0.8',
 			);
 			iconTl.to(vm.btnText, { yPercent: 102, ease: Power4.easeIn, onComplete: swapBtnText }, '<');
 
@@ -273,8 +263,6 @@ export default defineComponent({
 			intro1,
 			intro2,
 			intro3,
-			intro4,
-			intro5,
 			btn,
 			btnIcon,
 			btnText,
