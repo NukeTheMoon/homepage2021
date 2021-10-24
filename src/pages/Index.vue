@@ -40,13 +40,18 @@
 			</p>
 
 			<div class="cta" :class="{ overflow: ctaOverflow }">
-				<a ref="btn" href="#" class="btn">
+				<a ref="btn" href="/bartosz_jedrasik_cv.pdf" class="btn" @click.prevent="onBtnClick">
 					<span class="overflow">
-						<img ref="btnArrow" class="btn__arrow" src="@/assets/svg/arrow.svg" alt="" />
+						<div ref="btnIcon" class="btn__icon">
+							<img v-show="isIconPdf" src="@/assets/svg/pdf.svg" alt="" />
+							<img v-show="!isIconPdf" src="@/assets/svg/arrow.svg" alt="" />
+						</div>
 					</span>
 
 					<span class="overflow">
-						<span ref="btnText" class="btn__text">download cv</span>
+						<span ref="btnText" class="btn__text" :class="{ 'btn__text--filename': tempBtnText }">
+							download cv
+						</span>
 					</span>
 				</a>
 
@@ -91,7 +96,7 @@
 <script>
 import { defineComponent, getCurrentInstance, onMounted, ref } from '@vue/composition-api';
 import { Expo, gsap, Power3, Power4 } from 'gsap/all';
-import { TweenMax } from 'gsap/gsap-core';
+import { Tween } from 'gsap/gsap-core';
 
 import PaleMoon from '@/components/PaleMoon';
 import PaleNoise from '@/components/PaleNoise';
@@ -100,29 +105,32 @@ import { rot13 } from '@/helpers/rot13';
 export default defineComponent({
 	components: { PaleMoon, PaleNoise },
 	setup() {
-		const greet = ref(),
+		const { proxy: vm } = getCurrentInstance(),
+			greet = ref(),
 			intro1 = ref(),
 			intro2 = ref(),
 			intro3 = ref(),
 			intro4 = ref(),
 			intro5 = ref(),
 			btn = ref(),
-			btnArrow = ref(),
+			btnIcon = ref(),
 			btnText = ref(),
 			write = ref(),
 			mail = ref(),
 			github = ref(),
-			linkedin = ref();
-		const ctaOverflow = ref(true);
-		const mailOverflow = ref(true);
-		const socialsOverflow = ref(true);
-		const arrowTl = gsap.timeline({ paused: true });
-		const introTl = gsap.timeline({
-			defaults: {
-				duration: 1,
-				ease: Power4.easeInOut,
-			},
-		});
+			linkedin = ref(),
+			ctaOverflow = ref(true),
+			mailOverflow = ref(true),
+			socialsOverflow = ref(true),
+			isIconPdf = ref(false),
+			introTl = gsap.timeline({
+				defaults: {
+					duration: 1,
+					ease: Power4.easeInOut,
+				},
+			}),
+			filename = 'bartosz_jedrasik_cv.pdf',
+			tempBtnText = ref('');
 
 		function decodeMail() {
 			if (!mail.value) return;
@@ -132,8 +140,6 @@ export default defineComponent({
 		}
 
 		function initIntro() {
-			const { proxy: vm } = getCurrentInstance();
-
 			if (!vm) return;
 
 			introTl.from(vm.greet, { yPercent: -101, duration: 2, ease: Expo.easeInOut });
@@ -143,7 +149,7 @@ export default defineComponent({
 			introTl.from(vm.intro4, { xPercent: -101 }, '>-0.6');
 			introTl.from(vm.intro5, { xPercent: -101 }, '<0.2');
 			introTl.from(vm.btn, { xPercent: -101, onComplete: disableCtaOverflow }, '<0.2');
-			introTl.from(vm.btnArrow, { yPercent: -101 }, '<0.2');
+			introTl.from(vm.btnIcon, { yPercent: -101 }, '<0.2');
 			introTl.from(vm.btnText, { yPercent: -101 }, '<0.2');
 			introTl.from(vm.write, { xPercent: -101 }, '<0.3');
 			introTl.from(vm.mail, { xPercent: -101, onComplete: disableMailOverflow }, '>-0.6');
@@ -161,8 +167,8 @@ export default defineComponent({
 				},
 				'>',
 			);
-			introTl.to(vm.btnArrow, { yPercent: 102, ease: Power4.easeIn, duration: 0.4 }, '<0.2');
-			introTl.fromTo(vm.btnArrow, { yPercent: -102 }, { yPercent: 0, ease: Power4.easeOut, duration: 0.4 }, '>');
+			introTl.to(vm.btnIcon, { yPercent: 102, ease: Power4.easeIn, duration: 0.4 }, '<0.2');
+			introTl.fromTo(vm.btnIcon, { yPercent: -102 }, { yPercent: 0, ease: Power4.easeOut, duration: 0.4 }, '>');
 		}
 
 		function disableCtaOverflow() {
@@ -178,20 +184,11 @@ export default defineComponent({
 		}
 
 		function initHover() {
-			const { proxy: vm } = getCurrentInstance();
-
 			if (!vm) return;
 
-			arrowTl.to(vm.btnArrow, { yPercent: 102, ease: Power4.easeIn, duration: 0.4 });
-			arrowTl.fromTo(vm.btnArrow, { yPercent: -102 }, { yPercent: 0, ease: Power4.easeOut, duration: 0.4 }, '>');
-
 			vm.btn.addEventListener('mouseenter', () => {
-				if (!gsap.isTweening(vm.btnArrow)) {
-					arrowTl.play(0);
-				}
-
 				if (!ctaOverflow.value) {
-					TweenMax.to(vm.btn, {
+					Tween.to(vm.btn, {
 						scaleX: 1.15,
 						scaleY: 1.15,
 						boxShadow: '0 0 7rem 0 rgba(255, 255, 255, 0.1)',
@@ -204,7 +201,7 @@ export default defineComponent({
 
 			vm.btn.addEventListener('mouseleave', () => {
 				if (!ctaOverflow.value) {
-					TweenMax.to(vm.btn, {
+					Tween.to(vm.btn, {
 						scaleX: 1,
 						scaleY: 1,
 						boxShadow: '0 0 0rem 0 rgba(255, 255, 255, 0.0)',
@@ -214,6 +211,55 @@ export default defineComponent({
 					});
 				}
 			});
+		}
+
+		function onBtnClick() {
+			if (!vm) return;
+
+			const iconTl = gsap.timeline({ defaults: { duration: 0.4 } });
+
+			function download() {
+				window.open(`/${filename}`);
+			}
+
+			function swapBtnIcon() {
+				isIconPdf.value = !isIconPdf.value;
+			}
+
+			function swapBtnText() {
+				if (tempBtnText.value) {
+					vm.btnText.innerText = tempBtnText.value;
+					tempBtnText.value = '';
+				} else {
+					tempBtnText.value = vm.btnText.innerText;
+					vm.btnText.innerText = filename;
+				}
+			}
+
+			iconTl.fromTo(
+				vm.btnIcon,
+				{ yPercent: 0, overwrite: 'auto' },
+				{ yPercent: 102, ease: Power4.easeIn, duration: 0.3, onComplete: swapBtnIcon },
+			);
+			iconTl.fromTo(
+				vm.btnText,
+				{ yPercent: 0, overwrite: 'auto' },
+				{ yPercent: 102, ease: Power4.easeIn, duration: 0.3, onComplete: swapBtnText },
+				'<',
+			);
+
+			iconTl.fromTo(vm.btnIcon, { yPercent: -102 }, { yPercent: 0, ease: Power4.easeOut }, '>');
+			iconTl.fromTo(vm.btnText, { yPercent: -102 }, { yPercent: 0, ease: Power4.easeOut }, '<');
+
+			iconTl.to(
+				vm.btnIcon,
+				{ yPercent: 102, ease: Power4.easeIn, onStart: download, onComplete: swapBtnIcon },
+				'>1.5',
+			);
+			iconTl.to(vm.btnText, { yPercent: 102, ease: Power4.easeIn, onComplete: swapBtnText }, '<');
+
+			iconTl.fromTo(vm.btnIcon, { yPercent: -102 }, { yPercent: 0, ease: Power4.easeOut }, '>');
+			iconTl.fromTo(vm.btnText, { yPercent: -102 }, { yPercent: 0, ease: Power4.easeOut }, '<');
 		}
 
 		onMounted(() => {
@@ -230,7 +276,7 @@ export default defineComponent({
 			intro4,
 			intro5,
 			btn,
-			btnArrow,
+			btnIcon,
 			btnText,
 			write,
 			mail,
@@ -239,6 +285,9 @@ export default defineComponent({
 			ctaOverflow,
 			mailOverflow,
 			socialsOverflow,
+			isIconPdf,
+			tempBtnText,
+			onBtnClick,
 		};
 	},
 });
@@ -296,6 +345,10 @@ export default defineComponent({
 		border-radius: $height;
 		background-color: $color-gray-5;
 
+		&:active {
+			background-color: $color-gray-10;
+		}
+
 		&__text {
 			color: $color-white;
 			font-size: 4.6rem;
@@ -303,12 +356,20 @@ export default defineComponent({
 			line-height: 4.6rem;
 			letter-spacing: -0.025em;
 			pointer-events: none;
+
+			&--filename {
+				font-size: 2.4rem;
+			}
 		}
 
-		&__arrow {
-			height: 3.9rem;
+		&__icon {
 			margin-right: 2.8rem;
 			pointer-events: none;
+
+			img {
+				width: 3.5rem;
+				height: 3.9rem;
+			}
 		}
 	}
 }
