@@ -3,7 +3,7 @@ html {
 	font-family: $font;
 	font-size: 10/1460*100vh;
 	font-weight: 400;
-	background-color: $color-gray-5;
+	background: $color-gray-5;
 
 	@include landscape {
 		font-size: 10/1080*100vh;

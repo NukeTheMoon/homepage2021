@@ -1,7 +1,5 @@
 <template>
 	<Layout>
-		<pale-noise />
-
 		<pale-moon />
 
 		<div class="type">
@@ -17,8 +15,6 @@
 					</span>
 				</span>
 
-				&#32;
-
 				<br />
 
 				<span class="overflow">
@@ -27,8 +23,6 @@
 						<strong>frontend developer</strong>
 					</span>
 				</span>
-
-				&#32;
 
 				<br />
 
@@ -93,16 +87,15 @@
 </template>
 
 <script>
-import { defineComponent, getCurrentInstance, onMounted, ref } from '@vue/composition-api';
+import { defineComponent, getCurrentInstance, onBeforeUnmount, onMounted, ref } from '@vue/composition-api';
 import { Expo, gsap, Power3, Power4 } from 'gsap/all';
 import { Tween } from 'gsap/gsap-core';
 
 import PaleMoon from '@/components/PaleMoon';
-import PaleNoise from '@/components/PaleNoise';
 import { rot13 } from '@/helpers/rot13';
 
 export default defineComponent({
-	components: { PaleMoon, PaleNoise },
+	components: { PaleMoon },
 	setup() {
 		const { proxy: vm } = getCurrentInstance(),
 			greet = ref(),
@@ -173,34 +166,44 @@ export default defineComponent({
 			socialsOverflow.value = false;
 		}
 
+		function hoverBtn(e) {
+			if (!vm || ctaOverflow.value || e.sourceCapabilities?.firesTouchEvents) return;
+
+			Tween.to(vm.btn, {
+				scaleX: 1.15,
+				scaleY: 1.15,
+				boxShadow: '0 0 7rem 0 rgba(255, 255, 255, 0.1)',
+				ease: Power3.easeOut,
+				duration: 0.5,
+				overwrite: 'auto',
+			});
+		}
+
+		function unhoverBtn(e) {
+			if (!vm || ctaOverflow.value || e.sourceCapabilities?.firesTouchEvents) return;
+
+			Tween.to(vm.btn, {
+				scaleX: 1,
+				scaleY: 1,
+				boxShadow: '0 0 0rem 0 rgba(255, 255, 255, 0.0)',
+				ease: Power3.easeOut,
+				duration: 0.5,
+				overwrite: 'auto',
+			});
+		}
+
 		function initHover() {
 			if (!vm) return;
 
-			vm.btn.addEventListener('mouseenter', () => {
-				if (!ctaOverflow.value) {
-					Tween.to(vm.btn, {
-						scaleX: 1.15,
-						scaleY: 1.15,
-						boxShadow: '0 0 7rem 0 rgba(255, 255, 255, 0.1)',
-						ease: Power3.easeOut,
-						duration: 0.5,
-						overwrite: 'auto',
-					});
-				}
-			});
+			vm.btn.addEventListener('mouseenter', hoverBtn);
+			vm.btn.addEventListener('mouseleave', unhoverBtn);
+		}
 
-			vm.btn.addEventListener('mouseleave', () => {
-				if (!ctaOverflow.value) {
-					Tween.to(vm.btn, {
-						scaleX: 1,
-						scaleY: 1,
-						boxShadow: '0 0 0rem 0 rgba(255, 255, 255, 0.0)',
-						ease: Power3.easeOut,
-						duration: 0.5,
-						overwrite: 'auto',
-					});
-				}
-			});
+		function destroyHover() {
+			if (!vm) return;
+
+			vm.btn.removeEventListener('mouseenter', hoverBtn);
+			vm.btn.removeEventListener('mouseleave', unhoverBtn);
 		}
 
 		function onBtnClick() {
@@ -209,7 +212,7 @@ export default defineComponent({
 			const iconTl = gsap.timeline({ defaults: { duration: 0.4 } });
 
 			function download() {
-				window.open(`/${filename}`);
+				location = `/${filename}`;
 			}
 
 			function swapBtnIcon() {
@@ -258,6 +261,10 @@ export default defineComponent({
 			initHover();
 		});
 
+		onBeforeUnmount(() => {
+			destroyHover();
+		});
+
 		return {
 			greet,
 			intro1,
@@ -287,6 +294,8 @@ export default defineComponent({
 
 	@include landscape {
 		padding: 9rem 8rem;
+		min-width: 45.1rem;
+		flex-shrink: 0;
 	}
 }
 
@@ -302,8 +311,8 @@ export default defineComponent({
 
 .intro {
 	margin-bottom: 7rem;
-	font-size: 3.6rem;
-	line-height: 4.2rem;
+	font-size: 3rem;
+	line-height: 3.8rem;
 	letter-spacing: -0.025em;
 
 	strong,

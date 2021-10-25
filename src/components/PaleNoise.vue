@@ -5,7 +5,6 @@
 <script>
 import { defineComponent, getCurrentInstance, onMounted, watch } from '@vue/composition-api';
 import { Tween } from 'gsap/gsap-core';
-
 import * as PIXI from 'pixi.js';
 
 import { useViewUnits } from '@/composables/useViewUnits';
@@ -23,6 +22,10 @@ export default defineComponent({
 				const pixi = new PIXI.Application({
 					backgroundAlpha: 0,
 					resizeTo: vm.$el,
+				});
+
+				window.addEventListener('beforeunload', () => {
+					pixi.destroy(true);
 				});
 
 				function updateRect() {
@@ -85,6 +88,7 @@ export default defineComponent({
 	bottom: 0;
 	left: 0;
 	overflow: hidden;
+	pointer-events: none;
 	opacity: 0;
 	background: linear-gradient(315deg, $color-gradient-1, $color-gradient-2);
 	background-attachment: fixed;

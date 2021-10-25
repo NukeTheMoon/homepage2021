@@ -1,5 +1,7 @@
 <template>
 	<div class="layout" :class="{ loaded: isLoaded }">
+		<pale-noise />
+
 		<slot />
 	</div>
 </template>
@@ -7,9 +9,11 @@
 <script>
 import { defineComponent, onMounted, ref } from '@vue/composition-api';
 
+import PaleNoise from '@/components/PaleNoise';
 import { initFirebase } from '@/helpers/initFirebase';
 
 export default defineComponent({
+	components: { PaleNoise },
 	setup() {
 		const isLoaded = ref(false);
 

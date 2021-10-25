@@ -39,12 +39,13 @@ export default defineComponent({
 	margin-top: -20rem;
 	margin-bottom: -20rem;
 	position: relative;
-	overflow-x: hidden;
-	overflow-y: visible;
+	overflow: visible;
+	pointer-events: none;
 
 	@include landscape {
 		margin-top: -35rem;
 		margin-right: -10rem;
+		max-width: 54vw;
 	}
 
 	&__core {
