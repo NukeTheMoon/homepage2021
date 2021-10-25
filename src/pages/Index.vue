@@ -124,10 +124,10 @@ export default defineComponent({
 			tempBtnText = ref('');
 
 		function decodeMail() {
-			if (!mail.value) return;
+			if (!vm) return;
 
-			mail.value.setAttribute('href', rot13(mail.value.getAttribute('href')));
-			mail.value.innerText = rot13(mail.value.innerText);
+			vm.mail.setAttribute('href', rot13(vm.mail.getAttribute('href')));
+			vm.mail.innerText = rot13(vm.mail.innerText);
 		}
 
 		function initIntro() {
@@ -138,11 +138,11 @@ export default defineComponent({
 			introTl.from(vm.intro2, { xPercent: -101 }, '<0.4');
 			introTl.from(vm.intro3, { xPercent: -101 }, '<0.4');
 			introTl.from(vm.btn, { xPercent: -101, onComplete: disableCtaOverflow }, '<0.4');
-			introTl.from(vm.btnIcon, { yPercent: -101 }, '<0.4');
-			introTl.from(vm.btnText, { yPercent: -101 }, '<0.4');
+			introTl.from(vm.btnIcon, { yPercent: -101 }, '<0.2');
+			introTl.from(vm.btnText, { yPercent: -101 }, '<0.2');
 			introTl.from(vm.write, { xPercent: -101 }, '<0.5');
-			introTl.from(vm.github, { yPercent: -102, duration: 0.7 }, '>-0.6');
-			introTl.from(vm.linkedin, { yPercent: -102, duration: 0.7, onComplete: disableSocialsOverflow }, '>-0.6');
+			introTl.from(vm.github, { yPercent: -102, duration: 0.7 }, '>-0.4');
+			introTl.from(vm.linkedin, { yPercent: -102, duration: 0.7, onComplete: disableSocialsOverflow }, '>-0.4');
 			introTl.to(
 				vm.btn,
 				{
