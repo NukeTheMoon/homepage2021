@@ -93,6 +93,7 @@ import { Tween } from 'gsap/gsap-core';
 
 import PaleMoon from '@/components/PaleMoon';
 import { rot13 } from '@/helpers/rot13';
+import { isIOS } from '@/tools/browsers';
 
 export default defineComponent({
 	components: { PaleMoon },
@@ -167,7 +168,7 @@ export default defineComponent({
 		}
 
 		function hoverBtn(e) {
-			if (!vm || ctaOverflow.value || e.sourceCapabilities?.firesTouchEvents) return;
+			if (!vm || ctaOverflow.value || e.sourceCapabilities?.firesTouchEvents || isIOS()) return;
 
 			Tween.to(vm.btn, {
 				scaleX: 1.15,
@@ -180,7 +181,7 @@ export default defineComponent({
 		}
 
 		function unhoverBtn(e) {
-			if (!vm || ctaOverflow.value || e.sourceCapabilities?.firesTouchEvents) return;
+			if (!vm || ctaOverflow.value || e.sourceCapabilities?.firesTouchEvents || isIOS()) return;
 
 			Tween.to(vm.btn, {
 				scaleX: 1,
